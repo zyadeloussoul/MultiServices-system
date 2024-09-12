@@ -5,7 +5,9 @@ import 'dart:convert';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'partenaire.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:carousel_slider/carousel_slider.dart'; // For client testimonials
+import 'package:carousel_slider/carousel_slider.dart';
+import 'realisation.dart';
+import 'contact.dart';
 
 class Service {
   final String? name;
@@ -66,44 +68,69 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
     appBar: AppBar(
   title: Column(
-    crossAxisAlignment: CrossAxisAlignment.center, // Pour aligner le contenu à gauche
+    crossAxisAlignment: CrossAxisAlignment.center,
     children: [
       // Section Titre
       Text(
         'Allo Zain Services',
-        style: TextStyle(fontSize: 27),
+        style: TextStyle(
+          fontSize: 27,
+          fontWeight: FontWeight.bold,
+          color: Colors.white, // Assure que le texte est visible sur le fond bleu
+        ),
       ),
-      SizedBox(height: 5), // Espacement entre le titre et les informations
+      const SizedBox(height: 5), // Espacement entre le titre et les informations
+      
       // Heures d'ouverture et numéro de téléphone
       Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Row(
-            children: [
-              Icon(Icons.access_time, size: 16), // Icône des heures d'ouverture
-              SizedBox(width: 4),
-              Text(
-                'Lun - Sam: 9h à 20h',
-                style: TextStyle(fontSize: 16),
-              ),
-            ],
+          // Heures d'ouverture
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.access_time, size: 18, color: Colors.white),
+                const SizedBox(width: 4),
+                Text(
+                  'Lun - Sam: 9h à 20h',
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
           ),
-          Row(
-            children: [
-              Icon(FontAwesomeIcons.whatsapp, color: Colors.green, size: 16), // Icône WhatsApp
-              SizedBox(width: 4),
-              Text(
-                '0661-885592',
-                style: TextStyle(fontSize: 18),
-              ),
-            ],
+          
+          // Numéro WhatsApp
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(FontAwesomeIcons.whatsapp, color: Colors.greenAccent, size: 18),
+                const SizedBox(width: 4),
+                Text(
+                  '0661-885592',
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
     ],
   ),
   backgroundColor: Colors.blueAccent,
+  elevation: 0, // Remove shadow for a cleaner look
+  toolbarHeight: 100, // Increase height for better spacing
 ),
+
 
             drawer: Drawer(
         child: Column(
@@ -239,7 +266,10 @@ class HomeScreen extends StatelessWidget {
       // Bouton en bas
       ElevatedButton(
         onPressed: () {
-          // Action du bouton
+                              Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ContactPage()), 
+                      );
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.orange, // Couleur du bouton
@@ -313,7 +343,10 @@ class HomeScreen extends StatelessWidget {
                         SizedBox(height: 20),
                                ElevatedButton(
         onPressed: () {
-          // Action du bouton
+                       Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ContactPage()), 
+                      );
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.orange, // Couleur du bouton
@@ -352,6 +385,8 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
                PartnerSection(),
+             
+               RealisationPage (),
             // Featured Services
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -481,19 +516,138 @@ class HomeScreen extends StatelessWidget {
             SizedBox(height: 16.0),
             
             // Contact Us Button
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  // Navigate to contact us page
-                },
-                child: Text('Contactez Nous'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blueAccent, // Use backgroundColor instead of primary
-                  padding: EdgeInsets.symmetric(vertical: 12.0),
+           Padding(
+  padding: const EdgeInsets.all(16.0),
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      // Title Button
+      ElevatedButton(
+        onPressed: () {
+                        Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ContactPage()), 
+                      );
+        },
+        child: const Text('Contactez Nous'),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.blueAccent, // Use backgroundColor instead of primary
+          padding: const EdgeInsets.symmetric(vertical: 12.0),
+        ),
+      ),
+      const SizedBox(height: 20),
+      
+      // Subtitle
+      const Text(
+        'Demandez votre devis gratuit en ligne',
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          color: Colors.blueGrey,
+        ),
+      ),
+      const SizedBox(height: 20),
+      
+      // Contact Form
+      TextField(
+        decoration: InputDecoration(
+          labelText: 'Nom',
+          border: OutlineInputBorder(),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.blueAccent, width: 2.0),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey, width: 1.0),
+          ),
+        ),
+      ),
+      const SizedBox(height: 10),
+      TextField(
+        decoration: InputDecoration(
+          labelText: 'Email',
+          border: OutlineInputBorder(),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.blueAccent, width: 2.0),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey, width: 1.0),
+          ),
+        ),
+      ),
+      const SizedBox(height: 10),
+      TextField(
+        decoration: InputDecoration(
+          labelText: 'Téléphone',
+          border: OutlineInputBorder(),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.blueAccent, width: 2.0),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey, width: 1.0),
+          ),
+        ),
+      ),
+      const SizedBox(height: 10),
+      TextField(
+        decoration: InputDecoration(
+          labelText: 'Sujet',
+          border: OutlineInputBorder(),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.blueAccent, width: 2.0),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey, width: 1.0),
+          ),
+        ),
+      ),
+      const SizedBox(height: 10),
+      TextField(
+        decoration: InputDecoration(
+          labelText: 'Message',
+          border: OutlineInputBorder(),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.blueAccent, width: 2.0),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey, width: 1.0),
+          ),
+        ),
+        maxLines: 4, // Allows for multiline input
+      ),
+        Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    // Handle sending data to Spring Boot API
+                  },
+                  child: const Text('Envoyer', style: TextStyle(fontSize: 16)),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueAccent, // Use backgroundColor instead of primary
+                    padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
                 ),
               ),
-            ),
+      const SizedBox(height: 20),
+
+      // Phone Number
+      const Text(
+        'Appelez-nous +212 661-885592',
+        style: TextStyle(
+          fontSize: 16,
+          color: Colors.blueGrey,
+        ),
+      ),
+    ],
+  ),
+),
+
           ],
         ),
       ),
@@ -505,15 +659,16 @@ class HomeScreen extends StatelessWidget {
             label: 'Accueil',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.info),
+            icon: Icon(Icons.info,color: Colors.blueAccent),
             label: 'À Propos',
+        
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.miscellaneous_services),
+            icon: Icon(Icons.miscellaneous_services,color: Colors.blueAccent),
             label: 'Nos Services',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.contact_mail),
+            icon: Icon(Icons.contact_mail,color: Colors.blueAccent),
             label: 'Contactez Nous',
           ),
         ],
