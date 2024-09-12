@@ -42,6 +42,8 @@ public class WebSecurityConfig {
                         authorizeRequests
                                 .requestMatchers("/api/auth/**").permitAll()
                                 .requestMatchers("/api/services/**").permitAll()
+                                .requestMatchers("/api/contactes/**").permitAll()
+
                                 // Ensure correct role matching with "ROLE_" prefix
                                // .requestMatchers("/admin/**", "/getEmployee/**").hasRole("ADMIN")
                               //  .requestMatchers("/api/services/**", "/addService/**").hasAnyRole("ADMIN", "EMPLOYEE")
