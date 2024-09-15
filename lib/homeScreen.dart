@@ -8,7 +8,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'realisation.dart';
 import 'contact.dart';
-
+import 'portail.dart';
+import 'apropos.dart';
+import 'realisation2.dart' ;
 class Service {
   final String? name;
   final String? title;
@@ -157,15 +159,15 @@ class HomeScreen extends StatelessWidget {
                     },
                   ),
                   ListTile(
-                    title: Text('Cours'),
-                    onTap: () { /*
+                    title: Text('À propos'),
+                    onTap: () { 
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => CoursePage(),
-                      ));*/
+                        builder: (context) => Apropos(),
+                      ));
                     },
                   ),
                   ListTile(
-                    title: Text('À propos'),
+                    title: Text('Nos Services'),
                     onTap: () {/*
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => aapropos(),
@@ -173,20 +175,21 @@ class HomeScreen extends StatelessWidget {
                     },
                   ),
                   ListTile(
-                    title: Text('Newsletters'),
+                    title: Text('Contactez nous'),
                     onTap: () {
-                    /*  Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => NewLettres(),
-                      ));*/
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ContactPage()), 
+                      );
                     },
                   ),
                   ListTile(
-                    title: Text('Se connecter'),
+                    title: Text('Nos Realisation'),
                     onTap: () {
-                     /* Navigator.push(
+                      Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => LoginPage()),
-                      );*/
+                        MaterialPageRoute(builder: (context) => Realisation()),
+                      );
                     },
                   ),
                   ListTile(
@@ -538,112 +541,95 @@ class HomeScreen extends StatelessWidget {
       const SizedBox(height: 20),
       
       // Subtitle
-      const Text(
-        'Demandez votre devis gratuit en ligne',
-        style: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-          color: Colors.blueGrey,
-        ),
-      ),
-      const SizedBox(height: 20),
-      
-      // Contact Form
-      TextField(
-        decoration: InputDecoration(
-          labelText: 'Nom',
-          border: OutlineInputBorder(),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blueAccent, width: 2.0),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey, width: 1.0),
-          ),
-        ),
-      ),
-      const SizedBox(height: 10),
-      TextField(
-        decoration: InputDecoration(
-          labelText: 'Email',
-          border: OutlineInputBorder(),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blueAccent, width: 2.0),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey, width: 1.0),
-          ),
-        ),
-      ),
-      const SizedBox(height: 10),
-      TextField(
-        decoration: InputDecoration(
-          labelText: 'Téléphone',
-          border: OutlineInputBorder(),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blueAccent, width: 2.0),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey, width: 1.0),
-          ),
-        ),
-      ),
-      const SizedBox(height: 10),
-      TextField(
-        decoration: InputDecoration(
-          labelText: 'Sujet',
-          border: OutlineInputBorder(),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blueAccent, width: 2.0),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey, width: 1.0),
-          ),
-        ),
-      ),
-      const SizedBox(height: 10),
-      TextField(
-        decoration: InputDecoration(
-          labelText: 'Message',
-          border: OutlineInputBorder(),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blueAccent, width: 2.0),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey, width: 1.0),
-          ),
-        ),
-        maxLines: 4, // Allows for multiline input
-      ),
-        Center(
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Handle sending data to Spring Boot API
-                  },
-                  child: const Text('Envoyer', style: TextStyle(fontSize: 16)),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blueAccent, // Use backgroundColor instead of primary
-                    padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
+      Container(
+              padding: const EdgeInsets.all(16.0),
+              color: Colors.yellow,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Icon(
+                        FontAwesomeIcons.smileBeam,
+                        color: Colors.blueAccent,
+                        size: 30,
+                      ),
+                      SizedBox(width: 8.0),
+                      Text(
+                        '99%',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(width: 16.0),
+                      Expanded(
+                        child: Text(
+                          'Clients satisfaits',
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
+                  SizedBox(height: 16.0),
+                  Row(
+                    children: <Widget>[
+                      Icon(
+                        FontAwesomeIcons.projectDiagram,
+                        color: Colors.blueAccent,
+                        size: 30,
+                      ),
+                      SizedBox(width: 8.0),
+                      Text(
+                        '346',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(width: 16.0),
+                      Expanded(
+                        child: Text(
+                          'Projets achevés',
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 16.0),
+                  Row(
+                    children: <Widget>[
+                      Icon(
+                        FontAwesomeIcons.calendarAlt,
+                        color: Colors.blueAccent,
+                        size: 30,
+                      ),
+                      SizedBox(width: 8.0),
+                      Text(
+                        '5',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(width: 16.0),
+                      Expanded(
+                        child: Text(
+                          'ans d\'expérience',
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-      const SizedBox(height: 20),
-
-      // Phone Number
-      const Text(
-        'Appelez-nous +212 661-885592',
-        style: TextStyle(
-          fontSize: 16,
-          color: Colors.blueGrey,
-        ),
-      ),
+            ),
     ],
   ),
 ),
@@ -667,11 +653,20 @@ class HomeScreen extends StatelessWidget {
             icon: Icon(Icons.miscellaneous_services,color: Colors.blueAccent),
             label: 'Nos Services',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.contact_mail,color: Colors.blueAccent),
-            label: 'Contactez Nous',
+           BottomNavigationBarItem(
+            icon: Icon(Icons.person, color: Colors.blueAccent),
+            label: 'Profil',
           ),
         ],
+           onTap: (index) {
+          if (index == 3) {
+            // Navigation vers la page du profil
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => UserProfilePage()),
+            );
+          }
+          },
       ),
     );
   }
