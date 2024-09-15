@@ -52,7 +52,7 @@ public class AuthenticationService {
         return userRepo.findByEmail(email);
     }
     public User getUserName(String Username) {
-        return userRepo.findByEmail(Username);
+        return userRepo.findByUsername(Username);
     }
 
     public User getUserById(String id) {

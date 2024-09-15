@@ -48,11 +48,14 @@ public class JwtUtil {
                 .compact();
     }
 
+
+
     // Validate token based on username and expiration
     public Boolean validateToken(String token, String username) {
         final String extractedUsername = extractUsername(token);
         return (extractedUsername.equals(username) && !isTokenExpired(token));
     }
+
 
     // Extract username from token
     public String extractUsername(String token) {

@@ -20,34 +20,37 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     private static final Logger logger = LoggerFactory.getLogger(CustomUserDetailsService.class);
 
+    private final UserRepo userRepository;
+
     @Autowired
-    private UserRepo userRepository;
+    public CustomUserDetailsService(UserRepo userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        try {
-            logger.debug("Attempting to load user by username: {}", username);
-            User user = userRepository.findByUsername(username);
-            if (user == null) {
-                logger.error("User not found with username: {}", username);
-                throw new UsernameNotFoundException("User not found with username: " + username);
-            } else {
-                logger.info("User found: {}", user.getUsername());
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        logger.debug("Tentative de chargement de l'utilisateur par email : {}", email);
 
-                // Convert UserRole to GrantedAuthority
-                Collection<? extends GrantedAuthority> authorities = Collections.singletonList(
-                        new SimpleGrantedAuthority("ROLE_" + user.getRole().name())
-                );
-
-                return new org.springframework.security.core.userdetails.User(
-                        user.getUsername(),
-                        user.getPassword(),
-                        authorities
-                );
-            }
-        } catch (Exception e) {
-            logger.error("Error loading user: {}", e.getMessage(), e);
-            throw new UsernameNotFoundException("Error occurred while loading user", e);
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            logger.error("Utilisateur non trouvé avec l'email : {}", email);
+            throw new UsernameNotFoundException("Utilisateur non trouvé avec l'email : " + email);
         }
+
+        logger.info("Utilisateur trouvé : {}", user.getUsername());
+
+        return createUserDetails(user);
+    }
+
+    private UserDetails createUserDetails(User user) {
+        Collection<GrantedAuthority> authorities = Collections.singletonList(
+                new SimpleGrantedAuthority("ROLE_" + user.getRole().name())
+        );
+
+        return new org.springframework.security.core.userdetails.User(
+                user.getUsername(),
+                user.getPassword(),
+                authorities
+        );
     }
 }

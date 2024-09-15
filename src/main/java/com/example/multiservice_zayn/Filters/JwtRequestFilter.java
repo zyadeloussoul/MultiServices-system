@@ -37,6 +37,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             String jwt = authorizationHeader.substring(7);
+            logger.debug("JWT Token: {}", jwt);
 
             try {
                 String username = jwtUtil.extractUsername(jwt);
@@ -47,8 +48,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
                     if (userDetails != null && jwtUtil.validateToken(jwt, username)) {
                         Claims claims = jwtUtil.extractAllClaims(jwt);
-                        String role = claims.get("role", String.class);
+                        logger.debug("Token claims: {}", claims);
 
+                        String role = claims.get("role", String.class);
                         if (role != null && !jwtUtil.isTokenExpired(jwt)) {
                             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
                                     userDetails, null, userDetails.getAuthorities());
@@ -63,7 +65,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                     }
                 }
             } catch (Exception e) {
-                logger.error("JWT Token validation error: {}", e.getMessage());
+                logger.error("JWT Token validation error: {}", e.getMessage(), e);
             }
         }
 

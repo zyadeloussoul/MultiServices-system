@@ -44,9 +44,12 @@ public class WebSecurityConfig {
                                 .requestMatchers("/api/services/**").permitAll()
                                 .requestMatchers("/api/contactes/**").permitAll()
 
-                                // Ensure correct role matching with "ROLE_" prefix
-                               // .requestMatchers("/admin/**", "/getEmployee/**").hasRole("ADMIN")
-                              //  .requestMatchers("/api/services/**", "/addService/**").hasAnyRole("ADMIN", "EMPLOYEE")
+                                // Configuration des rôles
+                                .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/getEmployee/**").hasRole("ADMIN")
+                                .requestMatchers("/api/services/**").hasAnyRole("ADMIN", "EMPLOYEE")
+                                .requestMatchers("/addService/**").hasAnyRole("ADMIN", "EMPLOYEE")
+                                .requestMatchers("/user/**").permitAll() // Endpoint pour les données de l'utilisateur
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManagement ->
