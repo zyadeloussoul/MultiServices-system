@@ -76,6 +76,7 @@ class Apropos extends StatelessWidget {
                 ],
               ),
             ),
+            SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
@@ -87,6 +88,7 @@ class Apropos extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(height: 10),
             CarouselSlider(
               items: [
                 TestimonialCard(

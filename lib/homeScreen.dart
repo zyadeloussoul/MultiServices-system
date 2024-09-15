@@ -11,6 +11,7 @@ import 'contact.dart';
 import 'portail.dart';
 import 'apropos.dart';
 import 'realisation2.dart' ;
+import 'Partner.dart';
 class Service {
   final String? name;
   final String? title;
@@ -174,6 +175,16 @@ class HomeScreen extends StatelessWidget {
                       ));*/
                     },
                   ),
+                    ListTile(
+                    title: Text('Nos Realisation'),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Realisation()),
+                      );
+                    },
+                  ),
+
                   ListTile(
                     title: Text('Contactez nous'),
                     onTap: () {
@@ -183,22 +194,14 @@ class HomeScreen extends StatelessWidget {
                       );
                     },
                   ),
+                
                   ListTile(
-                    title: Text('Nos Realisation'),
+                    title: Text("Nos Partenaires"),
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Realisation()),
+                        MaterialPageRoute(builder: (context) => Partner2()), 
                       );
-                    },
-                  ),
-                  ListTile(
-                    title: Text("S'inscrire"),
-                    onTap: () {
-                     /* Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => SignUpPage()), 
-                      );*/
                     },
                   ),
                 ],
@@ -538,11 +541,11 @@ class HomeScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 12.0),
         ),
       ),
-      const SizedBox(height: 20),
+      const SizedBox(height: 40),
       
       // Subtitle
       Container(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(25.0),
               color: Colors.yellow,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -643,15 +646,15 @@ class HomeScreen extends StatelessWidget {
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Accueil',
+            //how to add color on text Colors.blueAccent,
+          ),
+           BottomNavigationBarItem(
+            icon: Icon(Icons.business_center,color: Colors.blueAccent),
+            label: 'Nos Services',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.info,color: Colors.blueAccent),
             label: 'À Propos',
-        
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.miscellaneous_services,color: Colors.blueAccent),
-            label: 'Nos Services',
           ),
            BottomNavigationBarItem(
             icon: Icon(Icons.person, color: Colors.blueAccent),
@@ -660,10 +663,31 @@ class HomeScreen extends StatelessWidget {
         ],
            onTap: (index) {
           if (index == 3) {
-            // Navigation vers la page du profil
+         
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => UserProfilePage()),
+            );
+          }
+          if (index == 2) {
+         
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Apropos()),
+            );
+          }
+          if (index == 1) {
+         
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => UserProfilePage()),
+            );
+          }
+          if (index == 0) {
+         
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => HomeScreen()),
             );
           }
           },

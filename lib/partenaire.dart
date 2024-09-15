@@ -11,7 +11,7 @@ class _PartnerSectionState extends State<PartnerSection> with SingleTickerProvid
   // Liste des chemins des images
   final List<String> partnerImages = [
     'images/axa.png',
-    'images/Dipndip_logo.png',
+    'images/dipndip.jpg',
     'images/dom.jpeg',
     'images/wiz.jpeg',
     'images/so.jpeg',
