@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
+import 'homeScreen.dart';
 class ReservationField {
   final String label;
   final TextEditingController controller;
@@ -220,17 +220,28 @@ class ConfirmationScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Confirmation de Réservation'),
         backgroundColor: Colors.deepPurple,
+        leading: IconButton(
+          icon: Icon(Icons.home), // Change the icon if you want
+          onPressed: () {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => HomeScreen()),
+              ModalRoute.withName('/'), // This ensures that the home screen is set as the root
+            );
+          },
+        ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-           Center( child:Text(
-              'Votre Reservation!',
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-            
-            ),),
+            Center(
+              child: Text(
+                'Votre Réservation!',
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              ),
+            ),
             SizedBox(height: 20),
             Text(
               'Cher(e) ${reservationData['name']},',
@@ -243,23 +254,23 @@ class ConfirmationScreen extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Text(
-              '•Nom: ${reservationData['name']}',
+              '• Nom: ${reservationData['name']}',
               style: TextStyle(fontSize: 18),
             ),
             Text(
-              '•Email: ${reservationData['email']}',
+              '• Email: ${reservationData['email']}',
               style: TextStyle(fontSize: 18),
             ),
             Text(
-              '•Ville: ${reservationData['city']}',
+              '• Ville: ${reservationData['city']}',
               style: TextStyle(fontSize: 18),
             ),
             Text(
-              '•Date: ${reservationData['date']}',
+              '• Date: ${reservationData['date']}',
               style: TextStyle(fontSize: 18),
             ),
             Text(
-              '•Catégorie : ${reservationData['category']}',
+              '• Catégorie : ${reservationData['category']}',
               style: TextStyle(fontSize: 18),
             ),
             SizedBox(height: 20),
@@ -269,11 +280,11 @@ class ConfirmationScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               Text(
-                '  •Adresse : ${reservationData['address']}',
+                '  • Adresse : ${reservationData['address']}',
                 style: TextStyle(fontSize: 18),
               ),
               Text(
-                '  •Métrage :  ${reservationData['area']} m²',
+                '  • Métrage :  ${reservationData['area']} m²',
                 style: TextStyle(fontSize: 18),
               ),
             ] else if (reservationData['category'] == 'Demenagement') ...[
@@ -282,23 +293,23 @@ class ConfirmationScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               Text(
-                '   •Emballage/Déballage: ${reservationData['packagingUnpacking']}',
+                '   • Emballage/Déballage: ${reservationData['packagingUnpacking']}',
                 style: TextStyle(fontSize: 18),
               ),
               Text(
-                '  •Chargement/Déchargement: ${reservationData['loadingUnloading']}',
+                '  • Chargement/Déchargement: ${reservationData['loadingUnloading']}',
                 style: TextStyle(fontSize: 18),
               ),
               Text(
-                '  •Mise en Place:  ${reservationData['setup']}',
+                '  • Mise en Place:  ${reservationData['setup']}',
                 style: TextStyle(fontSize: 18),
               ),
               Text(
-                '   •Adresse de Départ: ${reservationData['departureAddress']}',
+                '   • Adresse de Départ: ${reservationData['departureAddress']}',
                 style: TextStyle(fontSize: 18),
               ),
               Text(
-                '   •Adresse d’Arrivée: ${reservationData['arrivalAddress']}',
+                '   • Adresse d’Arrivée: ${reservationData['arrivalAddress']}',
                 style: TextStyle(fontSize: 18),
               ),
             ],
