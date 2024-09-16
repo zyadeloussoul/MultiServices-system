@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class ServiceService {
@@ -18,6 +21,11 @@ public class ServiceService {
     // Get all services
     public List<ServiceEntity> getAllServices() {
         return serviceRepository.findAll();
+    }
+
+    // Get services by category
+    public List<ServiceEntity> getServicesByCategory(String category) {
+        return serviceRepository.findByCategory(category);
     }
 
     // Add a new service
@@ -51,4 +59,14 @@ public class ServiceService {
             return ResponseEntity.notFound().build();
         }
     }
+
+    // Get unique categories from services
+    public List<String> getCategories() {
+        List<ServiceEntity> services = serviceRepository.findAll();
+        Set<String> categories = services.stream()
+                .map(ServiceEntity::getCategory)
+                .collect(Collectors.toSet());
+        return new ArrayList<>(categories);
+    }
+
 }

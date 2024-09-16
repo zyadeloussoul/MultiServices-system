@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface ServiceRepo extends MongoRepository<ServiceEntity, ObjectId> {
 
-
+    List<ServiceEntity> findByCategory(String category);
     List<ServiceEntity> findAll();
 
     Optional<ServiceEntity> findById(Long id);

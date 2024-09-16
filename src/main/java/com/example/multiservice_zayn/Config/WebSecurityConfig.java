@@ -43,11 +43,8 @@ public class WebSecurityConfig {
                                 .requestMatchers("/api/auth/**").permitAll()
                                 .requestMatchers("/api/services/**").permitAll()
                                 .requestMatchers("/api/contactes/**").permitAll()
-
-                                // Configuration des rôles
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
                                 .requestMatchers("/getEmployee/**").hasRole("ADMIN")
-                                .requestMatchers("/api/services/**").hasAnyRole("ADMIN", "EMPLOYEE")
                                 .requestMatchers("/addService/**").hasAnyRole("ADMIN", "EMPLOYEE")
                                 .requestMatchers("/user/**").permitAll() // Endpoint pour les données de l'utilisateur
                                 .anyRequest().authenticated()

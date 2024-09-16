@@ -8,6 +8,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/services")
@@ -20,6 +22,12 @@ public class ServiceController {
     @GetMapping
     public List<ServiceEntity> getAllServices() {
         return serviceService.getAllServices();
+    }
+
+    // Endpoint to get services by category
+    @GetMapping("/category/{categoryName}")
+    public List<ServiceEntity> getServicesByCategory(@PathVariable String categoryName) {
+        return serviceService.getServicesByCategory(categoryName);
     }
 
     // Endpoint to add a new service (accessible by ADMIN and EMPLOYEE)
@@ -41,5 +49,11 @@ public class ServiceController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteService(@PathVariable Long id) {
         return serviceService.deleteService(id);
+    }
+
+    // Endpoint to get unique categories from services
+    @GetMapping("/categories")
+    public List<String> getCategories() {
+        return serviceService.getCategories();
     }
 }
