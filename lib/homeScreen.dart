@@ -12,20 +12,23 @@ import 'portail.dart';
 import 'apropos.dart';
 import 'realisation2.dart' ;
 import 'Partner.dart';
+import 'Services.dart';
 class Service {
   final String? name;
   final String? title;
   final String? subtitle;
+  final String? category;
   final String? description;
   final String? image;
 
-  Service({this.name, this.title, this.subtitle, this.description, this.image});
+  Service({this.name, this.title, this.subtitle,this.category, this.description, this.image});
 
   factory Service.fromJson(Map<String, dynamic> json) {
     return Service(
       name: json['name'],
       title: json['title'],
       subtitle: json['subtitle'],
+      category: json['category'],
       description: json['description'],
       image: json['image'],
     );
@@ -65,7 +68,19 @@ Future<List<Service>> fetchServices() async {
   }
 }
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+    @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  late Future<List<Category>> _categoriesFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _categoriesFuture = fetchCategories(); // Pre-fetch categories
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -169,11 +184,19 @@ class HomeScreen extends StatelessWidget {
                   ),
                   ListTile(
                     title: Text('Nos Services'),
-                    onTap: () {/*
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => aapropos(),
-                      ));*/
-                    },
+              onTap: () async {
+  try {
+    List<Category> categories = await fetchCategories();
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => CategoryScreen(categories: categories),
+      ),
+    );
+  } catch (e) {
+    print('Error: $e');
+  }
+},
+
                   ),
                     ListTile(
                     title: Text('Nos Realisation'),
@@ -641,57 +664,62 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.blueAccent,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Accueil',
-            //how to add color on text Colors.blueAccent,
+  selectedItemColor: Colors.blueAccent,
+  items: [
+    BottomNavigationBarItem(
+      icon: Icon(Icons.home),
+      label: 'Accueil',
+      // Text color can be set using the selectedItemColor property of BottomNavigationBar
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.business_center, color: Colors.blueAccent),
+      label: 'Nos Services',
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.info, color: Colors.blueAccent),
+      label: 'À Propos',
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.person, color: Colors.blueAccent),
+      label: 'Profil',
+    ),
+  ],
+  onTap: (index) async {
+    if (index == 3) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => UserProfilePage()),
+      );
+    }
+    if (index == 2) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Apropos()),
+      );
+    }
+    if (index == 1) {
+      try {
+        // Fetch categories and navigate to the CategoryScreen
+        List<Category> categories = await fetchCategories();
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CategoryScreen(categories: categories),
           ),
-           BottomNavigationBarItem(
-            icon: Icon(Icons.business_center,color: Colors.blueAccent),
-            label: 'Nos Services',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.info,color: Colors.blueAccent),
-            label: 'À Propos',
-          ),
-           BottomNavigationBarItem(
-            icon: Icon(Icons.person, color: Colors.blueAccent),
-            label: 'Profil',
-          ),
-        ],
-           onTap: (index) {
-          if (index == 3) {
-         
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => UserProfilePage()),
-            );
-          }
-          if (index == 2) {
-         
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Apropos()),
-            );
-          }
-          if (index == 1) {
-         
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => UserProfilePage()),
-            );
-          }
-          if (index == 0) {
-         
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => HomeScreen()),
-            );
-          }
-          },
-      ),
+        );
+      } catch (e) {
+        print('Error: $e');
+      }
+    }
+    if (index == 0) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+      );
+    }
+  },
+),
+
     );
   }
 }
