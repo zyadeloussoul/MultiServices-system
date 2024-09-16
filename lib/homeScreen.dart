@@ -13,6 +13,7 @@ import 'apropos.dart';
 import 'realisation2.dart' ;
 import 'Partner.dart';
 import 'Services.dart';
+import 'ServiceDetails.dart';
 class Service {
   final String? name;
   final String? title;
@@ -430,86 +431,94 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
 
             // Fetch services from the API
-            FutureBuilder<List<Service>>(
-              future: fetchServices(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
-                } else if (snapshot.hasError) {
-                  return Center(child: Text('Erreur lors du chargement des services'));
-                } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return Center(child: Text('Aucun service disponible'));
-                } else {
-                  List<Service> services = snapshot.data!;
-                  return AnimationLimiter(
-                    child: GridView.builder(
-                      padding: EdgeInsets.symmetric(horizontal: 16.0),
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 16.0,
-                        mainAxisSpacing: 16.0,
+          FutureBuilder<List<Service>>(
+  future: fetchServices(),
+  builder: (context, snapshot) {
+    if (snapshot.connectionState == ConnectionState.waiting) {
+      return Center(child: CircularProgressIndicator());
+    } else if (snapshot.hasError) {
+      return Center(child: Text('Erreur lors du chargement des services'));
+    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+      return Center(child: Text('Aucun service disponible'));
+    } else {
+      List<Service> services = snapshot.data!;
+      return AnimationLimiter(
+        child: GridView.builder(
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 16.0,
+            mainAxisSpacing: 16.0,
+          ),
+          itemCount: services.length,
+          itemBuilder: (context, index) {
+            return AnimationConfiguration.staggeredGrid(
+              position: index,
+              duration: const Duration(milliseconds: 375),
+              columnCount: 2,
+              child: SlideAnimation(
+                verticalOffset: 50.0,
+                child: FadeInAnimation(
+                  child: GestureDetector(
+                    onTap: () {
+                        Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ServiceDetails(
+                    service: services[index],
+                  ),
+                ),
+              );
+                    },
+              
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
-                      itemCount: services.length,
-                      itemBuilder: (context, index) {
-                        return AnimationConfiguration.staggeredGrid(
-                          position: index,
-                          duration: const Duration(milliseconds: 375),
-                          columnCount: 2,
-                          child: SlideAnimation(
-                            verticalOffset: 50.0,
-                            child: FadeInAnimation(
-                              child: Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                elevation: 8,
-                                child: Column(
-                                  children: [
-                                    Expanded(
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(10.0),
-                                        child: Image.network(
-                                          services[index].image ?? 'https://via.placeholder.com/150',
-                                          fit: BoxFit.cover,
-                                          width: double.infinity,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            services[index].name ?? 'Nom du Service',
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          Text(
-                                            services[index].subtitle ?? 'Description courte',
-                                            style: TextStyle(
-                                              color: Colors.grey,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                      elevation: 8,
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10.0),
+                              child: Image.asset(
+                                services[index].image ?? 'images/daata.jpeg',
+                                fit: BoxFit.cover,
+                                width: double.infinity,
                               ),
                             ),
                           ),
-                        );
-                      },
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  services[index].name ?? 'Nom du Service',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  );
-                }
-              },
-            ),
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+      );
+    }
+  },
+)
+,
             SizedBox(height: 16.0),
             
             // Testimonials Section (Carousel Slider)
