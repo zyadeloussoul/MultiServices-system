@@ -44,6 +44,7 @@ public class WebSecurityConfig {
                                 .requestMatchers("/api/services/**").permitAll()
                                 .requestMatchers("/api/reservations/**").permitAll()
                                 .requestMatchers("/api/contactes/**").permitAll()
+                                .requestMatchers("/employee/all/**").permitAll()
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
                                 .requestMatchers("/getEmployee/**").hasRole("ADMIN")
                                 .requestMatchers("/addService/**").hasAnyRole("ADMIN", "EMPLOYEE")
