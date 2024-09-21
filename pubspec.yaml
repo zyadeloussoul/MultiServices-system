@@ -38,6 +38,8 @@ dependencies:
   http: ^1.2.2
   shared_preferences: ^2.2.3
   font_awesome_icon_class: ^0.0.6
+  jwt_decoder: ^2.0.1
+  
   
 
 dev_dependencies:
