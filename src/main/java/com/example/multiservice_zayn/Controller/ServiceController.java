@@ -39,16 +39,16 @@ public class ServiceController {
 
     // Endpoint to update a service (accessible by ADMIN and EMPLOYEE)
     @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
-    @PutMapping("/{id}")
-    public ResponseEntity<ServiceEntity> updateService(@PathVariable Long id, @RequestBody ServiceEntity serviceDetails) {
-        return serviceService.updateService(id, serviceDetails);
+    @PutMapping("/{name}")
+    public ResponseEntity<ServiceEntity> updateService(@PathVariable String name, @RequestBody ServiceEntity serviceDetails) {
+        return serviceService.updateService(name, serviceDetails);
     }
 
-    // Endpoint to delete a service (accessible by ADMIN and EMPLOYEE)
+    // Endpoint to delete a service by name (accessible by ADMIN and EMPLOYEE)
     @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteService(@PathVariable Long id) {
-        return serviceService.deleteService(id);
+    @DeleteMapping("/delete/{name}")
+    public ResponseEntity<Void> deleteService(@PathVariable String name) {
+        return serviceService.deleteService(name);
     }
 
     // Endpoint to get unique categories from services

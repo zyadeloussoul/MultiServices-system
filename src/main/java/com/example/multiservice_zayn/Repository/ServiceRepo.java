@@ -14,6 +14,7 @@ import java.util.Optional;
 public interface ServiceRepo extends MongoRepository<ServiceEntity, ObjectId> {
 
     List<ServiceEntity> findByCategory(String category);
+     ServiceEntity findByName(String name);
     List<ServiceEntity> findAll();
 
     Optional<ServiceEntity> findById(Long id);
