@@ -11,5 +11,7 @@ public interface UserRepo extends MongoRepository<User, String> {
     User findByEmail(String email);
     User findByUsername(String username);
     User save(Employee employee);
+    User findByRole(User.UserRole role);
 
+    void delete(User user);
 }

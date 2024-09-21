@@ -50,6 +50,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                         Claims claims = jwtUtil.extractAllClaims(jwt);
                         logger.debug("Token claims: {}", claims);
 
+                        // Log roles from claims
+                        System.out.println("Roles: " + claims.get("role"));
+
                         String role = claims.get("role", String.class);
                         if (role != null && !jwtUtil.isTokenExpired(jwt)) {
                             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(

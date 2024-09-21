@@ -5,6 +5,7 @@ import com.example.multiservice_zayn.Service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -38,22 +39,33 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
+
                                 .requestMatchers("/api/auth/**").permitAll()
                                 .requestMatchers("/api/services/**").permitAll()
                                 .requestMatchers("/api/reservations/**").permitAll()
                                 .requestMatchers("/api/contactes/**").permitAll()
-                                .requestMatchers("/employee/all/**").permitAll()
+                                .requestMatchers("/employee/all").permitAll() // Updated matcher
+                                .requestMatchers("/employee/add/**").hasRole("ADMIN")
+                                .requestMatchers("/employee/delete/**").hasRole("ADMIN")
+                                .requestMatchers("/employee/update/**").hasRole("ADMIN")
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
                                 .requestMatchers("/getEmployee/**").hasRole("ADMIN")
                                 .requestMatchers("/addService/**").hasAnyRole("ADMIN", "EMPLOYEE")
-                                .requestMatchers("/user/**").permitAll() // Endpoint pour les données de l'utilisateur
+                                .requestMatchers("/user/**").permitAll()
+                                .requestMatchers("/error").permitAll()
                                 .anyRequest().authenticated()
+
+
                 )
+
+
                 .sessionManagement(sessionManagement ->
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
+
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()));
 
