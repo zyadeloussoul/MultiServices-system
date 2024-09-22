@@ -191,7 +191,7 @@ class ApiService {
     if (response.statusCode == 204) {
       return true; // Success
     } else {
-      print('Failed to delete service by name: ${response.statusCode}');
+     
       return false; // Failure
     }
   }
@@ -473,7 +473,8 @@ class ServiceScreen extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text('Service supprimé avec succès!'),
           ));
-          Navigator.pop(context); // Navigate back after deletion
+          await fetchCategories();
+          Navigator.pop(context, true); // Navigate back after deletion
         } else {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text('Échec de la suppression du service.'),
@@ -725,7 +726,9 @@ class _UpdateServiceScreenState extends State<UpdateServiceScreen> {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Service modifié avec succès!'),
         ));
-        Navigator.pop(context); // Navigate back after update
+         await fetchServices(); 
+        Navigator.pop(context, true);
+           await fetchCategories(); // Navigate back after update
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Échec de la modification du service.'),

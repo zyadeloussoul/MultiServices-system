@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'employe.dart';
+import 'reservation.dart';
 
 // Function to get the access token
 Future<String?> getToken() async {
@@ -129,6 +130,11 @@ class AdminDrawer extends StatelessWidget {
                   leading: Icon(Icons.person_off_outlined),
                   title: Text('Les employées'),
                   onTap: () => _navigateTo(context, EmployeesScreen()),
+                ),
+                ListTile(
+                  leading: Icon(Icons.dataset_linked_rounded),
+                  title: Text('Les Reservations'),
+                 onTap: () => _navigateTo(context, ReservationsScreen()),
                 ),
                 ListTile(
                   leading: Icon(Icons.logout),

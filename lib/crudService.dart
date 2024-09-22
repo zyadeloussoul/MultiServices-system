@@ -69,7 +69,17 @@ class AddServiceScreen extends StatelessWidget {
                   // Show success message or navigate away
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text('Service ajouté avec succès!'),
+                     
                   ));
+                   await fetchServices();
+                    await fetchCategories();
+                    Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => CategoryScreen(categories: [category]),
+    ),
+  );
+                  
                   // Optionally clear the text fields or navigate back
                 } else {
                   // Show error message

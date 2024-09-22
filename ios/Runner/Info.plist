@@ -45,5 +45,18 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>UIBackgroundModes</key>
+<array>
+  <string>fetch</string>
+  <string>remote-notification</string>
+</array>
+<key>NSUserNotificationAlertStyle</key>
+<string>alert</string>
+<key>NSUserNotificationUsageDescription</key>
+<string>We use notifications to inform you about new reservations.</string>
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>Location is required for notifications.</string>
+
+
 </dict>
 </plist>
