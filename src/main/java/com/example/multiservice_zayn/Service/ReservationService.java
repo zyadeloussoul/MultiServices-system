@@ -5,6 +5,8 @@ import com.example.multiservice_zayn.Repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ReservationService {
 
@@ -15,5 +17,8 @@ public class ReservationService {
         return reservationRepository.save(reservation);
     }
 
-    // Add more methods as needed (e.g., for fetching, updating, deleting reservations)
+
+    public List<Reservation> getAllReservations() {
+        return reservationRepository.findAll();
+    }
 }
