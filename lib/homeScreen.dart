@@ -160,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: TextStyle(fontSize: 24, color: Colors.white),
               ),
               decoration: BoxDecoration(
-                color: Colors.greenAccent,
+                color: Colors.blueAccent,
               ),
             ),
             Expanded(

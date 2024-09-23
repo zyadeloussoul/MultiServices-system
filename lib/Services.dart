@@ -340,7 +340,7 @@ class ServiceScreen extends StatelessWidget {
                                       icon: Icon(Icons.info_outline),
                                       label: Text('Show Details'),
                                       style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.deepPurple,
+                                        backgroundColor: Colors.white,
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(8),
                                         ),

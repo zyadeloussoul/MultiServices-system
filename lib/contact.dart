@@ -65,100 +65,105 @@ class _ContactPageState extends State<ContactPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Contactez Nous'),
-        backgroundColor: Colors.blueAccent,
-        elevation: 0,
-        centerTitle: true,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Subtitle
-              Text(
-                'Demandez votre devis gratuit en ligne',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.blueGrey[800],
-                ),
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      title: const Text('Contactez Nous'),
+      backgroundColor: Colors.blueAccent,
+      elevation: 0,
+      centerTitle: true,
+    ),
+    body: Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Subtitle
+            Text(
+              'Demandez votre devis gratuit',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.blueGrey[800],
               ),
-              const SizedBox(height: 20),
+            ),
+            const SizedBox(height: 20),
 
-              // Contact Form
-              _buildTextField('Nom', _nameController),
-              const SizedBox(height: 16),
-              _buildTextField('Email', _emailController),
-              const SizedBox(height: 16),
-              _buildTextField('Téléphone', _phoneController),
-              const SizedBox(height: 16),
-              _buildTextField('Sujet', _subjectController),
-              const SizedBox(height: 16),
-              _buildMessageField(),
-              const SizedBox(height: 20),
+            // Contact Form
+            _buildTextField('Nom', _nameController),
+            const SizedBox(height: 16),
+            _buildTextField('Email', _emailController),
+            const SizedBox(height: 16),
+            _buildTextField('Téléphone', _phoneController),
+            const SizedBox(height: 16),
+            _buildTextField('Sujet', _subjectController),
+            const SizedBox(height: 16),
+            _buildMessageField(),
+            const SizedBox(height: 20),
 
-              // Send Button
-              Center(
-                child: ElevatedButton(
-                  onPressed: _sendContactData,
-                  child: const Text('Envoyer', style: TextStyle(fontSize: 16)),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blueAccent,
-                    padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
+            // Send Button
+            Center(
+              child: ElevatedButton(
+                onPressed: _sendContactData,
+                child: const Text('Envoyer', style: TextStyle(fontSize: 18)),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blueAccent,
+                  padding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 28.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
                   ),
+                  elevation: 5,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 
-  // Helper function to build text fields
-  Widget _buildTextField(String label, TextEditingController controller) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 8.0),
-      child: TextField(
-        controller: controller,
-        decoration: InputDecoration(
-          labelText: label,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12.0),
-          ),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
-          filled: true,
-          fillColor: Colors.grey[200],
+// Helper function to build text fields
+Widget _buildTextField(String label, TextEditingController controller) {
+  return Container(
+    margin: const EdgeInsets.symmetric(vertical: 8.0),
+    child: TextField(
+      controller: controller,
+      decoration: InputDecoration(
+        labelText: label,
+        labelStyle: TextStyle(color: Colors.blueGrey),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12.0),
+          borderSide: BorderSide(color: Colors.blueAccent, width: 2.0),
         ),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
+        filled: true,
+        fillColor: Colors.grey[100],
       ),
-    );
-  }
+    ),
+  );
+}
 
-  // Helper function to build message field
-  Widget _buildMessageField() {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 8.0),
-      child: TextField(
-        controller: _messageController,
-        decoration: InputDecoration(
-          labelText: 'Message',
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12.0),
-          ),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
-          filled: true,
-          fillColor: Colors.grey[200],
+// Helper function to build message field
+Widget _buildMessageField() {
+  return Container(
+    margin: const EdgeInsets.symmetric(vertical: 8.0),
+    child: TextField(
+      controller: _messageController,
+      decoration: InputDecoration(
+        labelText: 'Message',
+        labelStyle: TextStyle(color: Colors.blueGrey),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12.0),
+          borderSide: BorderSide(color: Colors.blueAccent, width: 2.0),
         ),
-        maxLines: 5,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
+        filled: true,
+        fillColor: Colors.grey[100],
       ),
-    );
-  }
+      maxLines: 5,
+    ),
+  );
+}
 }
